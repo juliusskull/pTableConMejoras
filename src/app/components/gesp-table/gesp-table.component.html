@@ -1,0 +1,75 @@
+<p-table #dt [columns]="cols" [value]="tareas_pendientes" selectionMode="single" 
+dataKey="{{vKey}}" [(selection)]="selectedTarea" (onRowSelect)="onRowSelectItem()" [paginator]="true" [rows]="rows" [responsive]="true"  [totalRecords]="totalRecords"
+[loading]="loading"
+(keyup.arrowdown)="bajando()"
+(keyup.arrowup)="subiendo()"
+>
+<ng-template pTemplate="caption">
+    <div style="text-align: center"  >
+        Lista de Items Pedidos
+    </div>
+   
+    
+   <div style="text-align: right"  >
+  
+    
+    <div class="ui-g-12 ui-md-12" style="color: black;" >
+        <select name="selectedQuantity" id="aantal"  #Select (change)="cambiarGrilla(Select.value)" class="form-control">
+            <option value="{{row}}">Filas {{rowsTxt}}</option>
+            <option *ngFor="let option of options" [value]="option" >{{option}}</option>
+        </select>
+        <label>Buscar <i class="ui-icon-search"></i> </label>
+        <input name="bsq" type="text" icon="ui-icon-check" [(ngModel)]="bsq" pInputText placeholder=""   (input)="dt.filterGlobal($event.target.value, 'contains')">
+        <p-button icon="ui-icon-filter-list" (click)="cargarTareasPosibles()" ></p-button>
+    </div>
+</div>    
+</ng-template>
+<ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+        <col *ngFor="let col of columns" [style.width]="col.width" [style.color]="red">
+    </colgroup>
+</ng-template>
+<ng-template pTemplate="header" let-columns>
+    <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+
+
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData" [ngClass]="rowData.COLOR">
+        <td *ngFor="let col of columns; let i = index" [attr.data-index]="i" style="FONT-SIZE: small;">
+            
+            <span *ngIf="col.field!='MONTO'; else elseBlock">{{rowData[col.field]}}</span>
+            <ng-template #elseBlock>{{rowData[col.field] | currency }}</ng-template>
+        </td>
+    
+
+    </tr>
+</ng-template>
+<ng-template pTemplate="summary" let-rowData>
+    <!--<div  [innerHTML]="descripcionTarea" style="text-align:left; background-color: white;color: black;"></div>-->
+         <app-descripcion-summary [descripcion] ="descripcionTarea" ></app-descripcion-summary>     
+     
+ 
+</ng-template>  
+</p-table>
+
+<p-dialog [(visible)]="MOSTRAR_FILTROS" modal="modal" showEffect="fade" [style]="{width: '400px', height: '80%' }" style="height: 400px;">
+<p-header>
+    <b> Filtros Posibles</b>
+</p-header>
+
+<button type="button" pButton   icon="ui-icon-filter-list" (click)="limpiarFiltros(dt)" label="Limpiar filtros" ></button>
+<p-scrollPanel [style]="{width: '400px', height: '250px'}">  
+<div *ngFor="let item of filtros" >
+    <h3 class="first">{{item.label}}</h3>
+    <p-dropdown  [options]="item.valores" [(ngModel)]="item.valorSelect" (click)="filtrarGrillaCampo2(dt,item.valor)"></p-dropdown>
+
+</div>    
+
+</p-scrollPanel>
+</p-dialog>

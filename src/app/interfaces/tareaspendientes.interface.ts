@@ -1,0 +1,58 @@
+export interface TareasPendientes {
+    ID_DERIVACION;
+    ID_PROCESO;
+    ID_MOVIM;
+    GERENCIA_ESTUDIO;
+    FCH_ALTA;
+    ID_USU_ALTA;
+    RESPONSABLE;
+    OBSERVACION;
+    FCH_CAD;
+    ID_USU_CAD;
+    ACUSE_RECIBO;
+    FCH_VTO_DERIV;
+    ID_ESTADO_DERIV;
+    ID_PRECEDENTE;
+    CANT_REITERA;
+    FCH_RPTA;
+    ID_USU_RPTA;
+    ID_TAR;
+    OBSEVACION_CAD;
+    ID_DERIV_ANT;
+    FCH_INI_DERIVACION;
+    ID_PROC_AGENDA;
+    ID_SOLICITUD;
+    SOLICITANTE;
+    DESC_TAR;
+    DEMORA;
+    CODIGO_DISTRITO;
+    NRO_EXPEDIENTE;
+    FCH_ALTA_PSC;
+    MARCA_FIO;
+    ID_USU_ALTA_PSC;
+    CARATULA_SOL;
+    CANTIDAD_DE_TAREAS;
+    TITULO;
+    OBSERVACION_SOLICITANTE;
+    FCH_EXPTE;
+    MONTO;
+    ID_CIR;
+    DESC_CIR;/*AGREGADO POST-QUERY */
+    ID_FORMA_PAGO;
+    DESC_FORMA_PAGO;/*AGREGADO POST-QUERY */
+    REQUE_NUME;
+    REQUE_TIPO;
+    LEGAJO_COMPRADOR;
+    COMPRADOR;/*AGREGADO POST-QUERY */
+    INI_PROXIMA_TAREA;/*GENERA EL DIA ACTUAL POR DEFECTO */
+    CARACTER;
+    CARACTER_TIPO;
+    COLOR;
+    EXTRA;
+    FILTROS?: TareasPendientesFiltro[];
+}
+export interface TareasPendientesFiltro {
+    label?: string;
+    filtro?: string;
+     valor?: string;
+}
